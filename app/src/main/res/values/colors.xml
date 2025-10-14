@@ -5,6 +5,9 @@
     <color name="primary_teal_dark">#0097A7</color>
     <color name="primary_teal_light">#B2EBF2</color>
 
+    <!-- Primary Teal untuk Button (lebih gelap) -->
+    <color name="primary_button">#00897B</color>
+
     <!-- Accent Colors -->
     <color name="accent_pink">#FFB3BA</color>
     <color name="accent_orange">#FF9800</color>
@@ -17,6 +20,9 @@
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
     <color name="text_hint">#BDBDBD</color>
+    <color name="text_dark">#1C1B1F</color>
+    <color name="text_medium">#49454F</color>
+    <color name="text_placeholder">#9E9E9E</color>
 
     <!-- Status Colors -->
     <color name="green_positive">#4CAF50</color>
@@ -26,6 +32,10 @@
     <!-- Card Colors -->
     <color name="card_background">#FFFFFF</color>
     <color name="card_shadow">#1A000000</color>
+
+    <!-- Border Colors -->
+    <color name="border_gray">#B0BEC5</color>
+    <color name="border_light">#E0E0E0</color>
 
     <!-- Common Colors -->
     <color name="black">#000000</color>

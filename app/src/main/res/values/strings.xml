@@ -24,9 +24,14 @@
     <string name="timun">Timun</string>
 
     <!-- Units -->
-    <string name="kg">kg</string>
-    <string name="pak">pak</string>
-    <string name="pcs">pcs</string>
+    <string name="kg">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="liter">Liter</string>
+    <string name="mililiter">Mililiter</string>
+    <string name="pak">Pak</string>
+    <string name="pcs">Pcs</string>
+    <string name="buah">Buah</string>
+    <string name="lembar">Lembar</string>
 
     <!-- Common -->
     <string name="rp">Rp.</string>
@@ -55,4 +60,30 @@
     <string name="stok_rendah">Stok Rendah</string>
     <string name="stok_aman">Stok Aman</string>
     <string name="notifikasi_stok_menipis">Notifikasi Stok Menipis</string>
+
+    <!-- Tambah Inventaris Screen -->
+    <string name="tambah_inventaris">Tambah Inventaris</string>
+    <string name="nama_bahan">Nama Bahan</string>
+    <string name="hint_nama_bahan">Masukkan nama bahan</string>
+    <string name="stok_minimum">Stok Minimum</string>
+    <string name="hint_stok_minimum">0</string>
+    <string name="hint_jumlah_stok">0</string>
+
+    <!-- Validation Messages -->
+    <string name="error_nama_bahan_kosong">Nama bahan tidak boleh kosong</string>
+    <string name="error_jumlah_stok_kosong">Jumlah stok tidak boleh kosong</string>
+    <string name="error_stok_minimum_kosong">Stok minimum tidak boleh kosong</string>
+    <string name="error_jumlah_invalid">Jumlah harus lebih dari 0</string>
+    <string name="success_tambah_inventaris">Bahan berhasil ditambahkan</string>
+    <string name="error_tambah_inventaris">Gagal menambahkan bahan</string>
+
+    <!-- Common Actions -->
+    <string name="back">Kembali</string>
+    <string name="cancel">Batal</string>
+    <string name="ok">OK</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="confirm_delete">Apakah Anda yakin ingin menghapus?</string>
 </resources>
