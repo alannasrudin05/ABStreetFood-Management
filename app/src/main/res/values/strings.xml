@@ -1,3 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ABStreetFood-Management</string>
+    <string name="app_name">AB Streetfood</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Home</string>
+    <string name="total_transaksi">Total Transaksi</string>
+    <string name="total_pendapatan">Total Pendapatan</string>
+    <string name="total_pengeluaran">Total Pengeluaran</string>
+    <string name="dari_hari_kemarin">dari hari kemarin</string>
+    <string name="penjualan_teratas">Penjualan Teratas</string>
+    <string name="stok">Stok</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transaksi">Transaksi</string>
+    <string name="nav_laporan">Laporan</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Product Names -->
+    <string name="ayam">Ayam</string>
+    <string name="sterofoam">Sterofoam</string>
+    <string name="bumbu">Bumbu</string>
+    <string name="timun">Timun</string>
+
+    <!-- Units -->
+    <string name="kg">kg</string>
+    <string name="pak">pak</string>
+    <string name="pcs">pcs</string>
+
+    <!-- Common -->
+    <string name="rp">Rp.</string>
+    <string name="menu_description">Menu</string>
+    <string name="profile_description">Profile</string>
+
+    <!-- Transaksi Screen -->
+    <string name="transaksi">Transaksi</string>
+    <string name="input_transaksi">INPUT TRANSAKSI</string>
+    <string name="pilihan_menu">Pilihan Menu</string>
+    <string name="ayam_goreng">Ayam Goreng</string>
+    <string name="ayam_bakar">Ayam Bakar</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="harga">Harga</string>
+    <string name="hint_jumlah">Masukkan Jumlah</string>
+    <string name="hint_harga">Masukkan Harga</string>
+    <string name="simpan">Simpan</string>
+    <string name="riwayat_transaksi">RIWAYAT TRANSAKSI</string>
+    <string name="selesai">Selesai</string>
+
+    <!-- Inventaris Screen -->
+    <string name="inventaris">Inventaris</string>
+    <string name="daftar_bahan_baku">Daftar Bahan Baku</string>
+    <string name="tambah_bahan">Tambah Bahan</string>
+    <string name="jumlah_stok">Jumlah Stok</string>
+    <string name="stok_rendah">Stok Rendah</string>
+    <string name="stok_aman">Stok Aman</string>
+    <string name="notifikasi_stok_menipis">Notifikasi Stok Menipis</string>
 </resources>

@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="primary_teal">#00BCD4</color>
+    <color name="primary_teal_dark">#0097A7</color>
+    <color name="primary_teal_light">#B2EBF2</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_pink">#FFB3BA</color>
+    <color name="accent_orange">#FF9800</color>
+
+    <!-- Background Colors -->
+    <color name="background_light">#F5F5F5</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+
+    <!-- Status Colors -->
+    <color name="green_positive">#4CAF50</color>
+    <color name="red_negative">#F44336</color>
+    <color name="orange_warning">#FF9800</color>
+
+    <!-- Card Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_shadow">#1A000000</color>
+
+    <!-- Common Colors -->
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
 </resources>
