@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ABStreetFoodManagement" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ABStreetFoodManagement" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary_teal</item>
+        <item name="colorPrimaryDark">@color/primary_teal_dark</item>
+        <item name="colorAccent">@color/primary_teal</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="Theme.ABStreetFoodManagement" parent="Base.Theme.ABStreetFoodManagement" />
