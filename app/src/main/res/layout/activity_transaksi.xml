@@ -60,7 +60,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
+        app:layout_constraintBottom_toTopOf="@id/bottomSection">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,139 +68,109 @@
             android:orientation="vertical"
             android:padding="@dimen/padding_medium">
 
-            <!-- Input Transaksi Card -->
-            <androidx.cardview.widget.CardView
+            <!-- Grid Menu (2x2) -->
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/card_radius"
-                app:cardElevation="@dimen/card_elevation"
-                app:cardBackgroundColor="@color/white"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/primary_teal">
+                android:columnCount="2"
+                android:rowCount="2"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:layout_marginBottom="@dimen/margin_large">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_medium">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/input_transaksi"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textColor="@color/text_primary"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="@dimen/margin_medium" />
-
-                    <!-- Pilihan Menu -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pilihan_menu"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textColor="@color/text_primary"
-                        android:layout_marginBottom="@dimen/margin_small" />
+                <!-- Menu Item 1 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMenu1"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFB3B3">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="@dimen/margin_medium">
-
-                        <Button
-                            android:id="@+id/btnAyamGoreng"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/ayam_goreng"
-                            android:textSize="@dimen/text_size_normal"
-                            android:textColor="@color/text_secondary"
-                            android:background="@drawable/button_menu_unselected"
-                            android:layout_marginEnd="8dp"
-                            style="?attr/materialButtonOutlinedStyle" />
-
-                        <Button
-                            android:id="@+id/btnAyamBakar"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/ayam_bakar"
-                            android:textSize="@dimen/text_size_normal"
-                            android:textColor="@color/text_secondary"
-                            android:background="@drawable/button_menu_unselected"
-                            style="?attr/materialButtonOutlinedStyle" />
-
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
                     </LinearLayout>
 
-                    <!-- Jumlah -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/jumlah"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textColor="@color/text_primary"
-                        android:layout_marginBottom="@dimen/margin_small" />
+                </androidx.cardview.widget.CardView>
 
-                    <EditText
-                        android:id="@+id/etJumlah"
+                <!-- Menu Item 2 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMenu2"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFB3B3">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_jumlah"
-                        android:inputType="number"
-                        android:padding="@dimen/padding_medium"
-                        android:background="@drawable/edittext_background"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_marginBottom="@dimen/margin_medium" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+                    </LinearLayout>
 
-                    <!-- Harga -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/harga"
-                        android:textSize="@dimen/text_size_normal"
-                        android:textColor="@color/text_primary"
-                        android:layout_marginBottom="@dimen/margin_small" />
+                </androidx.cardview.widget.CardView>
 
-                    <EditText
-                        android:id="@+id/etHarga"
+                <!-- Menu Item 3 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMenu3"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFB3B3">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_harga"
-                        android:inputType="number"
-                        android:padding="@dimen/padding_medium"
-                        android:background="@drawable/edittext_background"
-                        android:textSize="@dimen/text_size_normal"
-                        android:layout_marginBottom="@dimen/margin_medium" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+                    </LinearLayout>
 
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+                <!-- Menu Item 4 -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMenu4"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFB3B3">
 
-            <!-- Button Simpan -->
-            <Button
-                android:id="@+id/btnSimpan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/simpan"
-                android:textColor="@color/white"
-                android:background="@drawable/button_primary"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_medium" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+                    </LinearLayout>
 
-            <!-- Riwayat Transaksi -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/riwayat_transaksi"
-                android:textSize="@dimen/text_size_medium"
-                android:textColor="@color/text_secondary"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/margin_large"
-                android:layout_marginBottom="@dimen/margin_medium" />
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
 
             <!-- RecyclerView untuk Riwayat -->
             <androidx.recyclerview.widget.RecyclerView
@@ -213,6 +183,56 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Section: Total & Button -->
+    <LinearLayout
+        android:id="@+id/bottomSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp.10.000"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simpan"
+            android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
