@@ -4,15 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.praktikum.abstreetfood_management.MainActivity
 import com.praktikum.abstreetfood_management.R
+import com.praktikum.abstreetfood_management.databinding.FragmentHomeBinding
 
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class HomeFragment : Fragment() {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,24 +30,35 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val parentNavController = findNavController()
 
-            }
+        // Setup Bottom Navigation
+        val bottomNavView = binding.bottomNavigation // Menggunakan binding karena Anda sudah setup ViewBinding
+        // This links the BottomNavigationView item IDs (from bottom_nav_menu.xml)
+        // to the destinations in nav_graph.xml using the parentNavController.
+        // Note: nav_home, nav_transaksi, nav_laporan, nav_profile IDs must match
+        // the destination IDs in nav_graph.xml (homeFragment, transaksiFragment, etc.)
+        bottomNavView.setupWithNavController(parentNavController)
+
+        // Handle the menu icon click to open the drawer
+        binding.ivMenu.setOnClickListener { // Menggunakan binding
+            // Ambil DrawerLayout dari Activity dan buka
+            (requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)).openDrawer(
+                GravityCompat.START)
+        }
+        // Handle the profile icon click
+        binding.ivProfile.setOnClickListener { // Menggunakan binding
+            parentNavController.navigate(R.id.profileFragment)
+        }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

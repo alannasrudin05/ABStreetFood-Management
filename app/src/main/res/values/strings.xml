@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AB Streetfood</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Home</string>
+    <string name="total_transaksi">Total Transaksi</string>
+    <string name="total_pendapatan">Total Pendapatan</string>
+    <string name="total_pengeluaran">Total Pengeluaran</string>
+    <string name="dari_hari_kemarin">dari hari kemarin</string>
+    <string name="penjualan_teratas">Penjualan Teratas</string>
+    <string name="stok">Stok</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transaksi">Transaksi</string>
+    <string name="nav_laporan">Laporan</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Product Names -->
+    <string name="ayam">Ayam</string>
+    <string name="sterofoam">Sterofoam</string>
+    <string name="bumbu">Bumbu</string>
+    <string name="timun">Timun</string>
+
+    <!-- Units -->
+    <string name="kg">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="liter">Liter</string>
+    <string name="mililiter">Mililiter</string>
+    <string name="pak">Pak</string>
+    <string name="pcs">Pcs</string>
+    <string name="buah">Buah</string>
+    <string name="lembar">Lembar</string>
+
+    <!-- Common -->
+    <string name="rp">Rp.</string>
+    <string name="menu_description">Menu</string>
+    <string name="profile_description">Profile</string>
+
+    <!-- Transaksi Screen -->
+    <string name="transaksi">Transaksi</string>
+    <string name="input_transaksi">INPUT TRANSAKSI</string>
+    <string name="pilihan_menu">Pilihan Menu</string>
+    <string name="ayam_goreng">Ayam Goreng</string>
+    <string name="ayam_bakar">Ayam Bakar</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="harga">Harga</string>
+    <string name="hint_jumlah">Masukkan Jumlah</string>
+    <string name="hint_harga">Masukkan Harga</string>
+    <string name="simpan">Simpan</string>
+    <string name="riwayat_transaksi">RIWAYAT TRANSAKSI</string>
+    <string name="selesai">Selesai</string>
+
+    <!-- Inventaris Screen -->
+    <string name="inventaris">Inventaris</string>
+    <string name="daftar_bahan_baku">Daftar Bahan Baku</string>
+    <string name="tambah_bahan">Tambah Bahan</string>
+    <string name="jumlah_stok">Jumlah Stok</string>
+    <string name="stok_rendah">Stok Rendah</string>
+    <string name="stok_aman">Stok Aman</string>
+    <string name="notifikasi_stok_menipis">Notifikasi Stok Menipis</string>
+
+    <!-- Tambah Inventaris Screen -->
+    <string name="tambah_inventaris">Tambah Inventaris</string>
+    <string name="nama_bahan">Nama Bahan</string>
+    <string name="hint_nama_bahan">Masukkan nama bahan</string>
+    <string name="stok_minimum">Stok Minimum</string>
+    <string name="hint_stok_minimum">0</string>
+    <string name="hint_jumlah_stok">0</string>
+
+    <!-- Validation Messages -->
+    <string name="error_nama_bahan_kosong">Nama bahan tidak boleh kosong</string>
+    <string name="error_jumlah_stok_kosong">Jumlah stok tidak boleh kosong</string>
+    <string name="error_stok_minimum_kosong">Stok minimum tidak boleh kosong</string>
+    <string name="error_jumlah_invalid">Jumlah harus lebih dari 0</string>
+    <string name="success_tambah_inventaris">Bahan berhasil ditambahkan</string>
+    <string name="error_tambah_inventaris">Gagal menambahkan bahan</string>
+
+    <!-- Common Actions -->
+    <string name="back">Kembali</string>
+    <string name="cancel">Batal</string>
+    <string name="ok">OK</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="confirm_delete">Apakah Anda yakin ingin menghapus?</string>
+    <string name="profile">Profile</string>
+    <string name="karyawan">Karyawan</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Ubah Password</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="nama">Nama</string>
+    <string name="hint_nama">Masukkan nama lengkap Anda</string>
+    <string name="username">Username</string>
+    <string name="hint_username">Masukkan username Anda</string>
+    <string name="gender">Jenis Kelamin</string>
+    <string name="pilih_gender">Pilih Jenis Kelamin</string>
+    <string name="email">Email</string>
+    <string name="hint_email">Masukkan alamat email Anda</string>
+    <string name="simpan_changes">SIMPAN PERUBAHAN</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Kita menggunakan <b>...</b> untuk menandai bagian yang akan diubah warnanya -->
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+</resources>
