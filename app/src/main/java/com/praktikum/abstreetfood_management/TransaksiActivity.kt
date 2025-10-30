@@ -38,11 +38,11 @@ class TransaksiActivity : AppCompatActivity() {
 
     private fun initViews() {
         ivBack = findViewById(R.id.ivBack)
-        btnAyamGoreng = findViewById(R.id.btnAyamGoreng)
-        btnAyamBakar = findViewById(R.id.btnAyamBakar)
-        btnSimpan = findViewById(R.id.btnSimpan)
-        etJumlah = findViewById(R.id.etJumlah)
-        etHarga = findViewById(R.id.etHarga)
+//        btnAyamGoreng = findViewById(R.id.btnAyamGoreng)
+//        btnAyamBakar = findViewById(R.id.btnAyamBakar)
+//        btnSimpan = findViewById(R.id.btnSimpan)
+//        etJumlah = findViewById(R.id.etJumlah)
+//        etHarga = findViewById(R.id.etHarga)
         rvRiwayat = findViewById(R.id.rvRiwayat)
         bottomNavigation = findViewById(R.id.bottomNavigation)
 
