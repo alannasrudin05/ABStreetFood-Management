@@ -86,37 +86,4 @@
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
     <string name="confirm_delete">Apakah Anda yakin ingin menghapus?</string>
-
-    <!-- Profile Screen -->
-    <string name="profile">Profil</string>
-    <string name="edit_profile">Edit Profil</string>
-    <string name="change_password">Change Password</string>
-    <string name="sign_out">Sign Out</string>
-    <string name="karyawan">Karyawan</string>
-    <string name="confirm_sign_out">Apakah Anda yakin ingin keluar?</string>
-    <string name="confirm_sign_out_message">Anda akan kembali ke halaman login</string>
-
-    <!-- Edit Profile Screen -->
-    <string name="edit_profile_title">Edit Profil</string>
-    <string name="nama">Nama</string>
-    <string name="username">Username</string>
-    <string name="gender">Gender</string>
-    <string name="email">Email</string>
-    <string name="simpan_changes">Simpan</string>
-    <string name="hint_nama">Masukkan nama lengkap</string>
-    <string name="hint_username">Masukkan username</string>
-    <string name="hint_email">Masukkan email</string>
-    <string name="pilih_gender">Pilih Gender</string>
-    <string name="laki_laki">Laki-laki</string>
-    <string name="perempuan">Perempuan</string>
-
-    <!-- Validation Messages -->
-    <string name="error_nama_kosong">Nama tidak boleh kosong</string>
-    <string name="error_username_kosong">Username tidak boleh kosong</string>
-    <string name="error_email_kosong">Email tidak boleh kosong</string>
-    <string name="error_email_invalid">Format email tidak valid</string>
-    <string name="error_gender_kosong">Gender belum dipilih</string>
-    <string name="success_update_profile">Profil berhasil diperbarui</string>
-    <string name="error_update_profile">Gagal memperbarui profil</string>
-</resources>
 </resources>
