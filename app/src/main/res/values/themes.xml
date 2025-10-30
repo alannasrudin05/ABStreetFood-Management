@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ABStreetFoodManagement" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.ABStreetFoodManagement" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--    <style name="Base.Theme.ABStreetFoodManagement" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_teal</item>
         <item name="colorPrimaryDark">@color/primary_teal_dark</item>
