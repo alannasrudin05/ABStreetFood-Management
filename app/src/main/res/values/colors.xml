@@ -9,12 +9,18 @@
     <!-- Primary Teal untuk Button (lebih gelap) -->
     <color name="primary_button">#00897B</color>
 
+    <color name="primary_teal_light_transparent">#33009688</color>
+
     <!-- Accent Colors -->
     <color name="accent_pink">#FFB3BA</color>
     <color name="accent_orange">#FF9800</color>
 
+    <color name="selected">#229A9D</color>
+    <color name="unselected">#6E6E6E</color>
+
     <!-- Background Colors -->
     <color name="background_light">#F5F5F5</color>
+    <color name="background_light1">#ECEEEE</color>
     <color name="white">#FFFFFF</color>
 
     <!-- Text Colors -->

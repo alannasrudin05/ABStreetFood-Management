@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_medium"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:gravity="center_vertical">
+
+        <!-- Product Image -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/item_image_size"
+            android:layout_height="@dimen/item_image_size"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/accent_pink">
+
+            <ImageView
+                android:id="@+id/ivRiwayatImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ayam_goreng"
+                android:contentDescription="Product Image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Product Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/margin_medium">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ayam Goreng"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvVarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nasi"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="4dp" />
+
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 10.000"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/primary_teal"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/margin_small" />
+
+        </LinearLayout>
+
+        <!-- Right Side Info -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <LinearLayout
+                android:id="@+id/linearMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_grey"
+                android:orientation="horizontal"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/linearDeleteContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:src="@drawable/minus"
+                    android:paddingVertical="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Edit"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/linearDeleteContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/quantityProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Edit"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_grey"
+                android:orientation="horizontal"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/linearDeleteContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:src="@drawable/plus"
+                    android:paddingVertical="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Edit"/>
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tvRiwayatJumlah"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Jumlah 2x"-->
+    <!--                android:textSize="@dimen/text_size_small"-->
+    <!--                android:textColor="@color/text_secondary"-->
+    <!--                android:layout_marginBottom="4dp" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tvRiwayatPrice"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Rp.20.000"-->
+    <!--                android:textSize="@dimen/text_size_medium"-->
+    <!--                android:textColor="@color/text_primary"-->
+    <!--                android:textStyle="bold"-->
+    <!--                android:layout_marginBottom="4dp" />-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                android:gravity="center_vertical">-->
+
+    <!--                <ImageView-->
+    <!--                    android:layout_width="12dp"-->
+    <!--                    android:layout_height="12dp"-->
+    <!--                    android:src="@drawable/ic_time"-->
+    <!--                    android:contentDescription="Time"-->
+    <!--                    app:tint="@color/text_hint"-->
+    <!--                    android:layout_marginEnd="4dp" />-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tvRiwayatTime"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="15.00"-->
+    <!--                    android:textSize="@dimen/text_size_small"-->
+    <!--                    android:textColor="@color/text_hint" />-->

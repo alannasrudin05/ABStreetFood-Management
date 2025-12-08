@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/padding_medium"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
         android:gravity="center_vertical">
 
         <!-- Product Image -->
@@ -29,7 +30,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:contentDescription="Product Image" />
+                android:contentDescription="Product Image"
+                android:src="@drawable/ayam_goreng"
+                />
 
         </androidx.cardview.widget.CardView>
 
@@ -51,19 +54,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvProductDate"
+                android:id="@+id/tvVariant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="09/10/2025"
+                android:text="Nasi"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/text_secondary"
-                android:layout_marginTop="4dp" />
+                android:background="@drawable/tab_background"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="2dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_small"
                 android:gravity="center_vertical">
 
                 <View
@@ -73,10 +77,10 @@
                     android:layout_marginEnd="6dp" />
 
                 <TextView
-                    android:id="@+id/tvProductQuantity"
+                    android:id="@+id/tvSellingPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5kg"
+                    android:text="Rp 10.000"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="@color/primary_teal"
                     android:textStyle="bold" />

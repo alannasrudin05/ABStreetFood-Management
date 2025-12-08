@@ -4,21 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.praktikum.abstreetfood_management.MainActivity
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayoutMediator
 import com.praktikum.abstreetfood_management.R
+//import com.praktikum.abstreetfood_management.data.adapter.StockAdapter
+import com.praktikum.abstreetfood_management.data.adapter.TabPageAdapter
+//import com.praktikum.abstreetfood_management.data.adapter.TopSellingAdapter
 import com.praktikum.abstreetfood_management.databinding.FragmentHomeBinding
+import com.praktikum.abstreetfood_management.viewmodel.DashboardViewModel
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    // [BARU] Inject ViewModel
+//    private val viewModel: DashboardViewModel by viewModels()
+
+    // [BARU] Dua Adapter yang berbeda
+//    private lateinit var topSellingAdapter: TopSellingAdapter
+//    private lateinit var stockAdapter: StockAdapter
+
+    private val tabTitles = arrayListOf("Top Sales Product", "History")
+//    private val tabTitles = mutableMapOf("Top Sales Product" to R.drawable, "History")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,20 +50,40 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         return binding.root
+    }
+
+    private fun setUpTabLayoutWithViewPager() {
+//        binding.viewPager.adapter = TabPageAdapter(this)
+
+        val adapter = TabPageAdapter(this)
+        binding.viewPager.adapter = adapter
+        TabLayoutMediator(binding.tabs, binding.viewPager) {tab,position->
+//            tab.text = tabTitles[position]
+            tab.text = adapter.getTabTitle(position)
+        }.attach()
+
+//        for (i in 0..2){
+        for (i in 0 until adapter.itemCount) {
+            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.tab_title, null)
+                as TextView
+            binding.tabs.getTabAt(i)?.customView = textView
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpTabLayoutWithViewPager()
         val parentNavController = findNavController()
 
         // Setup Bottom Navigation
-        val bottomNavView = binding.bottomNavigation // Menggunakan binding karena Anda sudah setup ViewBinding
+//        val bottomNavView = binding.bottomNavigation // Menggunakan binding karena Anda sudah setup ViewBinding
         // This links the BottomNavigationView item IDs (from bottom_nav_menu.xml)
         // to the destinations in nav_graph.xml using the parentNavController.
         // Note: nav_home, nav_transaksi, nav_laporan, nav_profile IDs must match
         // the destination IDs in nav_graph.xml (homeFragment, transaksiFragment, etc.)
-        bottomNavView.setupWithNavController(parentNavController)
+//        bottomNavView.setupWithNavController(parentNavController)
 
         // Handle the menu icon click to open the drawer
         binding.ivMenu.setOnClickListener { // Menggunakan binding
@@ -56,6 +95,88 @@ class HomeFragment : Fragment() {
         binding.ivProfile.setOnClickListener { // Menggunakan binding
             parentNavController.navigate(R.id.profileFragment)
         }
+
+        setupAdapters() // <<< Setup Adapter Awal
+//        setupTabListeners() // <<< Setup Listener Tab
+        setupObservers()
+    }
+
+    private fun setupAdapters() {
+        // Inisialisasi Adapter Penjualan Teratas
+//        topSellingAdapter = TopSellingAdapter { product ->
+//            // Logika klik: Tampilkan detail/pilihan tambah transaksi produk terlaris
+//        }
+//
+//        // Inisialisasi Adapter Stok
+//        stockAdapter = StockAdapter { stockItem ->
+//            // Logika klik: Tampilkan detail/pilihan untuk mencatat bahan masuk (restock)
+//        }
+
+        // Atur RecyclerView untuk menggunakan adapter default (Penjualan Teratas)
+//        binding.rvProducts.layoutManager = LinearLayoutManager(context)
+//        binding.rvProducts.adapter = topSellingAdapter // Default: Penjualan Teratas
+    }
+
+//    private fun setupTabListeners() {
+//        // Logika saat klik Tab Penjualan Teratas
+//        binding.tvPenjualanTab.setOnClickListener {
+//            selectTab(isTopSelling = true)
+//        }
+//
+//        // Logika saat klik Tab Stok
+//        binding.tvStokTab.setOnClickListener {
+//            selectTab(isTopSelling = false)
+//        }
+//    }
+
+//    private fun selectTab(isTopSelling: Boolean) {
+//        if (isTopSelling) {
+//            // A. Tampilkan Penjualan Teratas
+//            binding.rvProducts.adapter = topSellingAdapter
+//            topSellingAdapter.submitList(viewModel.topSellingProducts.value)
+//
+//            // B. Perbarui Tampilan Tab (Warna)
+//            binding.tvPenjualanTab.setBackgroundResource(R.drawable.tab_selected)
+//            binding.tvStokTab.setBackgroundResource(android.R.color.transparent)
+//            binding.tvStokTab.setTextColor(requireContext().getColor(R.color.primary_teal))
+//            binding.tvPenjualanTab.setTextColor(requireContext().getColor(R.color.text_primary))
+//        } else {
+//            // A. Tampilkan Stok
+//            binding.rvProducts.adapter = stockAdapter
+//            stockAdapter.submitList(viewModel.stockItems.value)
+//
+//            // B. Perbarui Tampilan Tab (Warna)
+//            binding.tvStokTab.setBackgroundResource(R.drawable.tab_selected)
+//            binding.tvPenjualanTab.setBackgroundResource(android.R.color.transparent)
+//            binding.tvPenjualanTab.setTextColor(requireContext().getColor(R.color.primary_teal))
+//            binding.tvStokTab.setTextColor(requireContext().getColor(R.color.text_primary))
+//        }
+//    }
+
+    private fun setupObservers() {
+        // 1. Amati Total Pendapatan Harian
+//        viewModel.dailyRevenue.observe(viewLifecycleOwner) { revenue ->
+//            val formattedRevenue = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(revenue ?: 0.0)
+//            binding.tvTotalPendapatan.text = formattedRevenue
+//        }
+
+        // 2. Amati Produk Terlaris (Untuk di-cache dan digunakan saat tab aktif)
+//        viewModel.topSellingProducts.observe(viewLifecycleOwner) { products ->
+//            // Hanya update adapter jika tab Penjualan Teratas sedang aktif
+//            if (binding.tvPenjualanTab.background.constantState == resources.getDrawable(R.drawable.tab_selected).constantState) {
+//                topSellingAdapter.submitList(products)
+//            }
+//        }
+//
+//        // 3. Amati Stok Items (Untuk di-cache dan digunakan saat tab aktif)
+//        viewModel.stockItems.observe(viewLifecycleOwner) { items ->
+//            // Hanya update adapter jika tab Stok sedang aktif
+//            if (binding.tvStokTab.background.constantState == resources.getDrawable(R.drawable.tab_selected).constantState) {
+//                stockAdapter.submitList(items)
+//            }
+//        }
+
+        // TODO: Anda perlu observer untuk Total Transaksi (tvTotalTransaksi)
     }
     override fun onDestroyView() {
         super.onDestroyView()

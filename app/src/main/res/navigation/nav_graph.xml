@@ -5,6 +5,18 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/onboardingFragment">
 
+
+
+    <fragment
+        android:id="@+id/notaFragment"
+        android:name="com.praktikum.abstreetfood_management.ui.NotaFragment"
+        android:label="fragment_nota"
+        tools:layout="@layout/fragment_nota" >
+        <argument
+            android:name="transactionId"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.praktikum.abstreetfood_management.ui.OnboardingFragment"
@@ -60,11 +72,18 @@
         android:name="com.praktikum.abstreetfood_management.ui.InventarisFragment"
         android:label="fragment_inventaris"
         tools:layout="@layout/fragment_inventaris" />
+
     <fragment
         android:id="@+id/transaksiFragment"
         android:name="com.praktikum.abstreetfood_management.ui.TransaksiFragment"
         android:label="fragment_transaksi"
-        tools:layout="@layout/fragment_transaksi" />
+        tools:layout="@layout/fragment_transaksi" >
+        <action
+            android:id="@+id/action_transaksiFragment_to_notaFragment"
+            app:destination="@id/notaFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/pengaturanFragment"
         android:name="com.praktikum.abstreetfood_management.ui.PengaturanFragment"
@@ -100,6 +119,16 @@
         android:name="com.praktikum.abstreetfood_management.ui.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.praktikum.abstreetfood_management.ui.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>\
 
 
 

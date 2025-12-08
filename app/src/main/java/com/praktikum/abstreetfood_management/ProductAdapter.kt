@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.praktikum.abstreetfood_management.ProductAdapter.ProductViewHolder
+import com.praktikum.abstreetfood_management.domain.model.Product
 
 class ProductAdapter(private val context: Context) : RecyclerView.Adapter<ProductViewHolder>() {
     private var products: List<Product>
@@ -41,22 +42,22 @@ class ProductAdapter(private val context: Context) : RecyclerView.Adapter<Produc
         private val tvProductName: TextView =
             itemView.findViewById(R.id.tvProductName)
         private val tvProductDate: TextView =
-            itemView.findViewById(R.id.tvProductDate)
+            itemView.findViewById(R.id.tvSalesDate)
         private val tvProductQuantity: TextView =
-            itemView.findViewById(R.id.tvProductQuantity)
+            itemView.findViewById(R.id.tvSalesQuantity)
 
         fun bind(product: Product) {
             tvProductName.text = product.name
-            tvProductDate.text = product.date
-            tvProductQuantity.text = product.quantity
+//            tvProductDate.text = product.date
+//            tvProductQuantity.text = product.quantity
 
             // Set image if available
-            if (product.imageResId != 0) {
-                ivProductImage.setImageResource(product.imageResId)
-            } else {
-                // Set default pink background (already set in XML)
-                ivProductImage.setImageDrawable(null)
-            }
+//            if (product.imageResId != 0) {
+//                ivProductImage.setImageResource(product.imageResId)
+//            } else {
+//                // Set default pink background (already set in XML)
+//                ivProductImage.setImageDrawable(null)
+//            }
         }
     }
 }

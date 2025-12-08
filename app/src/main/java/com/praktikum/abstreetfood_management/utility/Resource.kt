@@ -1,4 +1,4 @@
-package com.praktikum.abstreetfood_management.domain
+package com.praktikum.abstreetfood_management.utility
 
 /**
  * Resource: Wrapper untuk menangani state data (Success, Loading, Error).

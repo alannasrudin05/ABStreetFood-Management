@@ -21,6 +21,8 @@ interface UserDao {
     @Query("SELECT * FROM users")
     suspend fun getAllUsers(): List<UserEntity>
 
+
+
     // Get user by ID
     @Query("SELECT * FROM users WHERE id = :userId")
     suspend fun getUserById(userId: String): UserEntity?
@@ -48,4 +50,7 @@ interface UserDao {
     // Get users that need sync (older than X time)
     @Query("SELECT * FROM users WHERE lastSyncedAt < :timestamp")
     suspend fun getUsersNeedingSync(timestamp: Long): List<UserEntity>
+
+    @Query("DELETE FROM users WHERE id = :userId")
+    suspend fun deleteUserById(userId: String)
 }

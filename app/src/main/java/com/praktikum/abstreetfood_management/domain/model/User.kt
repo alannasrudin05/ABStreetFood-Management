@@ -1,4 +1,4 @@
-package com.praktikum.abstreetfood_management.domain
+package com.praktikum.abstreetfood_management.domain.model
 
 /**
  * User: Model Domain, digunakan oleh Use Case dan Presentation Layer (ViewModel/Fragment).
@@ -10,5 +10,5 @@ data class User(
     val email: String,
     val role: String,
     val isActive: Boolean,
-    val createdAt: Long
+//    val createdAt: Long
 )

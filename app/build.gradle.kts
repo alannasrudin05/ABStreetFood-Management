@@ -4,6 +4,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.kotlin.kapt)
+    id("kotlin-parcelize")
 //    alias(libs.plugins.kotlin.serialization)
 //    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
 }
@@ -88,6 +89,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // Logging (optional, untuk debugging sinkronisasi)
@@ -98,5 +100,27 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.51")
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // DataStore Preferences
+    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+
+    // WorkManager
+    val work_version = "2.9.0"
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+    implementation("androidx.hilt:hilt-work:1.2.0")
+
+    // --- RETROFIT & CONVERTER ---
+    // 1. Retrofit Core Library
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // 2. Gson Converter (untuk parsing JSON)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // 3. OkHttp Logging Interceptor (Opsional, tapi sangat direkomendasikan untuk debugging)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    implementation("io.coil-kt:coil:2.6.0")
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }

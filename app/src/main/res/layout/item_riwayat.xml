@@ -42,19 +42,19 @@
             android:layout_marginStart="@dimen/margin_medium">
 
             <TextView
-                android:id="@+id/tvRiwayatName"
+                android:id="@+id/tvTransactionId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ayam Goreng"
+                android:text="Nota #ABSF-A1B2C3"
                 android:textSize="@dimen/text_size_medium"
                 android:textColor="@color/text_primary"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvRiwayatStatus"
+                android:id="@+id/tvVarian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nasi"
+                android:text="Tersinkron"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="4dp" />
@@ -63,7 +63,7 @@
                 android:id="@+id/tvSelesai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/selesai"
+                android:text="04 Des 2025"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/primary_teal"
                 android:textStyle="bold"
@@ -82,13 +82,13 @@
                 android:id="@+id/tvRiwayatJumlah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jumlah 2x"
+                android:text="Item 2"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/text_secondary"
                 android:layout_marginBottom="4dp" />
 
             <TextView
-                android:id="@+id/tvRiwayatPrice"
+                android:id="@+id/tvGrandTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp.20.000"

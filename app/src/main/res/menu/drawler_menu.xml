@@ -22,6 +22,10 @@
             android:icon="@drawable/mail"
             android:title="Transaksi" />
         <item
+            android:id="@+id/historyFragment"
+            android:icon="@drawable/mail"
+            android:title="History" />
+        <item
             android:id="@+id/pengaturanFragment"
             android:icon="@drawable/mail"
             android:title="Pengaturan" />
@@ -33,5 +37,9 @@
             android:id="@+id/profileFragment"
             android:icon="@drawable/mail"
             android:title="Profile" />
+        <item
+            android:id="@+id/action_signout"
+            android:icon="@drawable/mail"
+            android:title="Sign Out" />
     </group>
 </menu>

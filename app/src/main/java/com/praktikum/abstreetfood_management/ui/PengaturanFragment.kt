@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.praktikum.abstreetfood_management.R
+import com.praktikum.abstreetfood_management.data.local.preferences.SyncPreferenceManager
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +24,8 @@ class PengaturanFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var syncPrefsManager: SyncPreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,23 +43,24 @@ class PengaturanFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_pengaturan, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PengaturanFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PengaturanFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        syncPrefsManager = SyncPreferenceManager(requireContext())
+
+        // 1. Tampilkan status awal
+        viewLifecycleOwner.lifecycleScope.launch {
+            syncPrefsManager.isSyncEnabledFlow.collect { isEnabled ->
+                // binding.syncToggle.isChecked = isEnabled // Asumsi ada elemen syncToggle
             }
+        }
+
+        // 2. Handle perubahan toggle
+        // binding.syncToggle.setOnCheckedChangeListener { _, isChecked ->
+        //     viewLifecycleOwner.lifecycleScope.launch {
+        //         syncPrefsManager.setSyncEnabled(isChecked)
+        //         // Opsi: Jika dinonaktifkan, batalkan WorkManager. Jika diaktifkan, mulai ulang.
+        //     }
+        // }
     }
 }

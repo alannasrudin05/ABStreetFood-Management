@@ -8,7 +8,7 @@ data class UserEntity(
     @PrimaryKey val id: String,
     val name: String,
     val email: String,
-    val password: String, // Dalam produksi, hash password!
+    val password: String,
     val role: String = "user", // admin, cashier, user
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis(),

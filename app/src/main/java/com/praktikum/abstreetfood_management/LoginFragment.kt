@@ -2,6 +2,7 @@ package com.praktikum.abstreetfood_management
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.praktikum.abstreetfood_management.databinding.FragmentLoginBinding // Ganti jika nama package berbeda
-import com.praktikum.abstreetfood_management.domain.Resource
+import com.praktikum.abstreetfood_management.utility.Resource
 import com.praktikum.abstreetfood_management.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
+import com.praktikum.abstreetfood_management.utility.PasswordHelper
 import javax.inject.Inject
 
 /**
@@ -32,6 +34,10 @@ class LoginFragment : Fragment() {
 
     // Injeksi ViewModel
     private val authViewModel: AuthViewModel by viewModels()
+
+//    private lateinit var passwordHelper: PasswordHelper
+
+    private val TAG = "LOGIN_FRAGMENT"
 
 //    @Inject
 //    lateinit var authViewModel: AuthViewModel
@@ -82,10 +88,23 @@ class LoginFragment : Fragment() {
             // (Asumsi: btnHome adalah ID untuk tombol login)
             // Logika navigasi dipisahkan ke fungsi sendiri
 //            navigateToHome()
+            // LOG A: Pastikan input diambil dengan benar dan tombol diklik
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
+            Log.d(TAG, "Tombol Login DITEKAN.") // <<< LOG BARU
+            Log.d(TAG, "Email Input: $email") // <<< LOG BARU
+            Log.d(TAG, "Password Input (Hanya Debug): $password") // <<< LOG BARU
 
-            authViewModel.processLogin(email, password)
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Email dan password harus diisi.", Toast.LENGTH_SHORT).show()
+                Log.w(TAG, "Input Kosong, Membatalkan processLogin.")
+            } else {
+                // LOG B: Panggilan ke ViewModel
+//                val passwordHash = passwordHelper.hashPassword(password)
+                Log.i(TAG, "Memanggil authViewModel.processLogin...") // <<< LOG BARU
+//                Log.i(TAG, passwordHash) // <<< LOG BARU
+                authViewModel.processLogin(email, password)
+            }
         }
     }
 
@@ -96,18 +115,21 @@ class LoginFragment : Fragment() {
         authViewModel.loginState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
+                    Log.d(TAG, "State Login: LOADING")
                     // Tampilkan loading spinner atau disable tombol
                     binding.btnLogin.isEnabled = false
                     // Tampilkan progress bar atau pesan loading (implementasikan sendiri)
                     Toast.makeText(requireContext(), "Sedang Memuat...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Success -> {
+                    Log.i(TAG, "State Login: SUCCESS. User Role: ${resource.data?.role}")
                     // Login berhasil! Tampilkan pesan sukses dan navigasi.
                     Toast.makeText(requireContext(), "Selamat datang, ${resource.data?.name}!", Toast.LENGTH_LONG).show()
                     navigateToHome()
                     authViewModel.resetLoginState() // Reset status setelah navigasi
                 }
                 is Resource.Error -> {
+                    Log.e(TAG, "State Login: ERROR. Pesan: ${resource.message}")
                     // Login gagal atau error jaringan
                     binding.btnLogin.isEnabled = true
                     Toast.makeText(requireContext(), "Gagal: ${resource.message}", Toast.LENGTH_LONG).show()

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvVariantTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih Varian untuk Ayam Geprek Nasi"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgVarian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbTanpaNasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tanpa Nasi (-Rp. 3000)"
+            android:tag="TANPA_NASI" />
+
+        <RadioButton
+            android:id="@+id/rbNasiBiasa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nasi Biasa (0)"
+            android:tag="NASI_BIASA" />
+
+        <RadioButton
+            android:id="@+id/rbNasiDouble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nasi Double (+Rp. 3000)"
+            android:tag="NASI_DOUBLE" />
+
+    </RadioGroup>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@android:color/darker_gray" android:layout_marginTop="12dp" android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Harga Total:"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/tvCalculatedPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp 12.000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"/>
+
+    <Button
+        android:id="@+id/btnAddToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tambahkan ke Keranjang" />
+
+</LinearLayout>

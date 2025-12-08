@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Item ini bisa digunakan untuk Sinkronisasi Manual data ke Turso/Vercel -->
+    <item
+        android:id="@+id/menu_sync_data"
+        android:title="Sinkronisasi"
+        android:icon="@drawable/folder_sync"
+        app:showAsAction="ifRoom" />
+
+    <!-- Item ini bisa digunakan untuk navigasi ke pengaturan profil atau aplikasi -->
+    <item
+        android:id="@+id/menu_settings"
+        android:title="Pengaturan"
+        android:icon="@drawable/settings"
+        app:showAsAction="never" />
+
+    <!-- Item untuk Logout -->
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Keluar"
+        app:showAsAction="never" />
+
+</menu>
