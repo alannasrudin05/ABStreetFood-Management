@@ -97,9 +97,9 @@ class HomeFragment : Fragment() {
                 GravityCompat.START)
         }
         // Handle the profile icon click
-        binding.ivProfile.setOnClickListener { // Menggunakan binding
-            parentNavController.navigate(R.id.profileFragment)
-        }
+//        binding.ivProfile.setOnClickListener { // Menggunakan binding
+//            parentNavController.navigate(R.id.profileFragment)
+//        }
 
         setupAdapters() // <<< Setup Adapter Awal
 //        setupTabListeners() // <<< Setup Listener Tab

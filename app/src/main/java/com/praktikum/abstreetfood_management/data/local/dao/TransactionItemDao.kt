@@ -34,6 +34,23 @@ interface TransactionItemDao {
     """)
     fun getTopSellingProducts(): Flow<List<TopSellingProduct>>
 
+    @Query("""
+        SELECT
+            PI.name AS name,
+            SUM(TI.quantity) AS totalQuantitySold,
+            SUM(TI.quantity * TI.itemPrice) AS totalRevenue
+        FROM transaction_items AS TI
+        JOIN product_item AS PI ON TI.productItemId = PI.id
+        JOIN transactions AS T ON TI.transactionId = T.id
+        WHERE T.transactionTime BETWEEN :startTime AND :endTime
+        GROUP BY PI.name
+        ORDER BY totalQuantitySold DESC
+        LIMIT 5
+    """)
+    fun getTopSellingProductsForPeriod(
+        startTime: Long,
+        endTime: Long
+    ): Flow<List<TopSellingProduct>>
 
     @Query("""
         SELECT SUM(ti.quantity) 

@@ -5,6 +5,7 @@ import com.praktikum.abstreetfood_management.data.local.entity.TransactionEntity
 import com.praktikum.abstreetfood_management.data.local.entity.TransactionItemEntity
 import com.praktikum.abstreetfood_management.domain.model.NewTransaction
 import com.praktikum.abstreetfood_management.domain.model.NewTransactionItem
+import com.praktikum.abstreetfood_management.domain.model.TopSellingProduct
 import com.praktikum.abstreetfood_management.domain.model.Transaction
 import com.praktikum.abstreetfood_management.domain.model.TransactionDetail
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,10 @@ interface ITransactionRepository {
     suspend fun recordNewTransaction(newTransaction: NewTransaction): Result<String>
     fun getDailyRevenueForPeriod(startTime: Long, endTime: Long): Flow<List<DailySalesData>>
     fun getDailyTransactionCount(userId: String): Flow<Int?>
+
+    // ITransactionRepository.kt (Asumsi)
+
+    fun getTopSellingProductsForPeriod(startTime: Long, endTime: Long): Flow<List<TopSellingProduct>>
 
     /** Mendapatkan detail Transaksi berdasarkan ID */
     suspend fun getTransactionById(transactionId: String): Transaction? // <-- BARU

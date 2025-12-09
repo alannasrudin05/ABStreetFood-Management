@@ -102,6 +102,9 @@ class NotaFragment : Fragment() {
         val transactionDate = Date(header.transactionTime)
         val cashierName = viewModel.currentUserName.value ?: header.userId // Ambil nama dari ViewModel
 
+        binding.tvStoreName.text = "ABStreetFood (Outlet 1 PASAPEN)"
+        binding.tvOutletLocation.text = "Jl. Otista No. 12A, Kuningan"
+
         binding.tvTransactionId.text = "Nota: #${header.id.take(8).uppercase(Locale.ROOT)}"
         binding.tvTransactionTime.text = "Tanggal: ${datetimeFormatter.format(transactionDate)}"
         binding.tvCashierName.text = "Kasir: $cashierName"
@@ -125,6 +128,7 @@ class NotaFragment : Fragment() {
 //            shareReceipt(binding.root.getChildAt(0))
 //            shareReceipt(binding.notaScrollView)
             val contentToCapture = binding.notaScrollView.getChildAt(0)
+//            val contentToCapture = binding.llReceiptContent
             shareReceipt(contentToCapture)
         }
 
@@ -299,16 +303,17 @@ class NotaFragment : Fragment() {
         headerView.visibility = View.GONE
         buttonContainer.visibility = View.GONE
 
-        // Capture Bitmap
-        val bitmap = createBitmapFromView(viewRoot)
-        val file = saveBitmapToCache(bitmap, transactionId)
 
         // Tampilkan kembali tombol
 //        shareButton.visibility = initialShareVisibility
 //        printButton.visibility = initialPrintVisibility
+        val bitmap = createBitmapFromView(viewRoot)
 
         headerView.visibility = initialHeaderVisibility
         buttonContainer.visibility = initialButtonsVisibility
+
+        // Capture Bitmap
+        val file = saveBitmapToCache(bitmap, transactionId)
 
         if (file == null) {
             Toast.makeText(requireContext(), "Gagal menyiapkan file share.", Toast.LENGTH_SHORT).show()
@@ -336,7 +341,7 @@ class NotaFragment : Fragment() {
             View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY),
             View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         )
-        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+//        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
 
 //        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
 //        val canvas = Canvas(bitmap)
@@ -351,6 +356,8 @@ class NotaFragment : Fragment() {
 
         // Pastikan background putih jika view tidak memiliki background (untuk menghindari transparan)
         canvas.drawColor(ContextCompat.getColor(view.context, R.color.white)) // <-- Tambahkan ini
+
+        canvas.translate(0f, -view.scrollY.toFloat())
 
         view.draw(canvas)
         return bitmap

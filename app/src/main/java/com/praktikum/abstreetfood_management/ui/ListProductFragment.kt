@@ -15,13 +15,19 @@ import com.praktikum.abstreetfood_management.databinding.FragmentListProductBind
 import com.praktikum.abstreetfood_management.domain.model.ProductItem
 import com.praktikum.abstreetfood_management.viewmodel.InventoryViewModel
 import androidx.fragment.app.viewModels
+import com.praktikum.abstreetfood_management.domain.model.TopSellingProduct
+import com.praktikum.abstreetfood_management.viewmodel.TransaksiViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListProductFragment : Fragment(){
     private var _binding: FragmentListProductBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var listProductAdapter: ListProductAdapter
-    private val viewModel: InventoryViewModel by viewModels()
+//    private val viewModel: InventoryViewModel by viewModels()
+    private val viewModel: TransaksiViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +46,12 @@ class ListProductFragment : Fragment(){
 
     private fun setupRecyclerView() {
         // Adapter dengan lambda untuk menangani klik
+//        listProductAdapter = ListProductAdapter { item ->
+//            handleProductClick(item)
+//        }
+
         listProductAdapter = ListProductAdapter { item ->
+            // item di sini adalah TopSellingProduct
             handleProductClick(item)
         }
 
@@ -51,7 +62,7 @@ class ListProductFragment : Fragment(){
     }
 
     // Fungsi yang menangani klik item
-    private fun handleProductClick(item: ProductItem) {
+    private fun handleProductClick(item: TopSellingProduct) {
         // Tampilkan BottomSheetDialog untuk pemilihan varian (metode yang lebih kompleks)
 //        showVariantSelectionDialog(item)
 
@@ -60,16 +71,15 @@ class ListProductFragment : Fragment(){
     }
 
     // Metode 1: AlertDialog Sederhana (Konfirmasi)
-    private fun showSimpleConfirmationDialog(item: ProductItem) {
+    private fun showSimpleConfirmationDialog(item: TopSellingProduct) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Konfirmasi Tambah")
-            .setMessage("Tambahkan '${item.name}' dengan harga Rp.${item.sellingPrice} ke transaksi?")
-            .setPositiveButton("Ya, Tambahkan") { dialog, _ ->
-                // TODO: Panggil Use Case untuk mencatat NewTransactionItem default
-                Toast.makeText(requireContext(), "${item.name} ditambahkan!", Toast.LENGTH_SHORT).show()
+            .setTitle("Detail Top Sales")
+            // Menggunakan data Top Sales: Nama, Kuantitas, dan Revenue
+            .setMessage("Produk Terlaris Hari Ini:\n${item.name}\nTerjual: ${item.totalQuantitySold} item\nRevenue: Rp.${item.totalRevenue}")
+            .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ ->
+            .setNegativeButton("Tutup") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -108,18 +118,29 @@ class ListProductFragment : Fragment(){
 
         // 1. Target Data Yang Diinginkan
         // Tujuan: Menampilkan Top Selling Products.
-        // Model Data: TopSellingProduct (name, totalQuantitySold, totalRevenue)
+        // Model Data: TopSellingProduct (name, totalQuantitySold, totalRevenue).
         Log.d("DATA_PREP", "Target model data: TopSellingProduct (mengandung Total Penjualan & Revenue).")
 
-        // 2. Status Implementasi ViewModel Observer
-        // Kode untuk observer Top Selling Products saat ini dikomentari (TODO):
-        // // viewModel.topSellingProducts.observe(viewLifecycleOwner) { products -> ... }
-        Log.w("DATA_PREP", "Status ViewModel Observer: Observer untuk 'topSellingProducts' saat ini dinonaktifkan (dikomentari/TODO).")
+        // 2. Aktifkan Observer dan kirim data ke Adapter
+        viewModel.topSellingProducts.observe(viewLifecycleOwner) { topSalesProducts ->
+            Log.d("DATA_PREP", "Observer TopSellingProducts aktif. Jumlah item diterima: ${topSalesProducts.size}")
 
-        // 3. Status Data yang Diamati Saat Ini
-        // Jika observer 'viewModel.allProductItems' (seperti yang dikomentari di loadData) yang digunakan,
-        // data yang diterima adalah ProductItem (data master), BUKAN data Top Sales.
-        Log.d("DATA_PREP", "Catatan: Data yang harusnya diterima dari ViewModel adalah hasil agregasi (TopSellingProduct).")
+            if (topSalesProducts.isNotEmpty()) {
+                // PENTING: BARIS INI AKAN MENYEBABKAN 'Type mismatch' JIKA ListProductAdapter
+                // TIDAK DIUBAH EKSTERNAL UNTUK MENERIMA TopSellingProduct
+                // Saya anggap Anda akan segera mengubah ListProductAdapter agar kompatibel.
+                listProductAdapter.submitList(topSalesProducts)
+
+                Log.i("DATA_PREP", "Data Top Sales sukses disubmit ke Adapter.")
+            } else {
+                Log.w("DATA_PREP", "Tidak ada data Top Sales ditemukan untuk hari ini.")
+                Toast.makeText(requireContext(), "Tidak ada data produk terlaris hari ini.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Log ini sudah tidak relevan karena observer sudah diaktifkan.
+        // Log.w("DATA_PREP", "Status ViewModel Observer: Observer untuk 'topSellingProducts' saat ini dinonaktifkan (dikomentari/TODO).")
+        Log.d("DATA_PREP", "Catatan: Data yang disubmit adalah TopSellingProduct (hasil agregasi).")
     }
 
     override fun onDestroyView() {

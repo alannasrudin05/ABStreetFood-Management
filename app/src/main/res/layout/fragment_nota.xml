@@ -49,10 +49,12 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/ll_receipt_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="16dp"
+            >
 
             <TextView
                 android:id="@+id/tv_store_name"

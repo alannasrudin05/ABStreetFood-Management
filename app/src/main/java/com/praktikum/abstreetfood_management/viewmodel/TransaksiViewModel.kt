@@ -1,6 +1,7 @@
 package com.praktikum.abstreetfood_management.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +16,13 @@ import javax.inject.Inject
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.praktikum.abstreetfood_management.data.repository.DailySalesData
+import com.praktikum.abstreetfood_management.domain.model.TopSellingProduct
 import com.praktikum.abstreetfood_management.domain.model.Transaction
 import com.praktikum.abstreetfood_management.domain.usecase.SessionUseCase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 @HiltViewModel
 class TransaksiViewModel @Inject constructor(
@@ -24,6 +30,8 @@ class TransaksiViewModel @Inject constructor(
     private val productRepository: IProductRepository,
     private val sessionUseCase: SessionUseCase,
 ) : ViewModel() {
+
+    private val TAG = "TransaksiVM_TopSales"
 
     // LiveData untuk memantau status penyimpanan
 //    private val _saveTransactionStatus = MutableLiveData<Result<Unit>>()
@@ -92,5 +100,46 @@ class TransaksiViewModel @Inject constructor(
 //        transactionRepository.getDailyRevenueForPeriod(startTime, endTime)
 //            .collect { emit(it) }
 //    }
+
+    val topSellingProducts: LiveData<List<TopSellingProduct>> = liveData {
+        // 1. Tentukan rentang waktu untuk Hari Ini
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        // Reset waktu ke awal hari ini (00:00:00.000)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startTime = calendar.timeInMillis
+
+        // --- LOG START TIME ---
+        Log.d(TAG, "Mulai perhitungan Top Sales hari ini: ${dateFormat.format(Date(startTime))}")
+
+        // Atur waktu ke awal hari berikutnya (sebagai batas akhir)
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+        val endTime = calendar.timeInMillis
+
+        Log.d(TAG, "Mulai perhitungan Top Sales hari ini: ${dateFormat.format(Date(startTime))}")
+
+        // 2. Ambil data dari Repository dalam bentuk Flow (Asumsi Repository sudah punya fungsi ini)
+        transactionRepository.getTopSellingProductsForPeriod(startTime, endTime)
+            .collect { topSalesList ->
+                Log.i(TAG, "Data Top Selling Products diterima. Jumlah: ${topSalesList.size}")
+
+                if (topSalesList.isNotEmpty()) {
+                    // --- LOG DETAIL PER PRODUK ---
+                    topSalesList.forEachIndexed { index, product ->
+                        Log.i(TAG,
+                            "[${index + 1}] Produk: ${product.name} | Terjual: ${product.totalQuantitySold} | Revenue: ${product.totalRevenue}"
+                        )
+                    }
+                } else {
+                    Log.w(TAG, "Tidak ada data Top Selling Products yang ditemukan untuk hari ini.")
+                }
+
+                emit(topSalesList)
+            }
+    }
 
 }

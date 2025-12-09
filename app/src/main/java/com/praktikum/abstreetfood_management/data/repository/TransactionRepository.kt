@@ -14,6 +14,7 @@ import com.praktikum.abstreetfood_management.data.mapper.toEntity
 import com.praktikum.abstreetfood_management.data.network.ApiService
 import com.praktikum.abstreetfood_management.domain.model.NewTransaction
 import com.praktikum.abstreetfood_management.domain.model.NewTransactionItem
+import com.praktikum.abstreetfood_management.domain.model.TopSellingProduct
 import com.praktikum.abstreetfood_management.domain.model.Transaction
 import com.praktikum.abstreetfood_management.domain.model.TransactionDetail
 import kotlinx.coroutines.flow.Flow
@@ -137,6 +138,14 @@ class TransactionRepository @Inject constructor(
                 Log.d("HISTORY_DATA", "--- END RIWAYAT TRANSAKSI ---")
             }
         }
+    }
+
+    override fun getTopSellingProductsForPeriod(
+        startTime: Long,
+        endTime: Long
+    ): Flow<List<TopSellingProduct>> {
+        // Panggil fungsi DAO yang baru saja kita buat
+        return transactionItemDao.getTopSellingProductsForPeriod(startTime, endTime)
     }
 
     /** Mendapatkan detail transaksi lengkap untuk Cetak Nota (Header + Items) */

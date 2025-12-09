@@ -658,6 +658,9 @@ class TransaksiFragment : Fragment(), VariantSelectionListener, CartActionListen
         dialogBinding.btnQuick10k.setOnClickListener { updateChangeDisplay(10000.0) }
         dialogBinding.btnQuick15k.setOnClickListener { updateChangeDisplay(15000.0) }
         dialogBinding.btnQuick20k.setOnClickListener { updateChangeDisplay(20000.0) }
+        dialogBinding.btnQuick30k.setOnClickListener { updateChangeDisplay(30000.0) }
+        dialogBinding.btnQuick50k.setOnClickListener { updateChangeDisplay(50000.0) }
+        dialogBinding.btnQuick100k.setOnClickListener { updateChangeDisplay(100000.0) }
 
         dialogBinding.btnUangPas.setOnClickListener {
             // Logika Uang Pas: Cash diterima sama dengan total tagihan

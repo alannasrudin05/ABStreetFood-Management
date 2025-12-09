@@ -7,39 +7,39 @@
 
         <item
             android:id="@+id/homeFragment"
-            android:icon="@drawable/mail"
-            android:title="Beranda" />
-        <item
-            android:id="@+id/dashboardFragment"
-            android:icon="@drawable/mail"
-            android:title="Dashboard" />
-        <item
-            android:id="@+id/inventarisFragment"
-            android:icon="@drawable/mail"
-            android:title="Inventaris" />
+            android:icon="@drawable/home"
+            android:title="Home" />
+<!--        <item-->
+<!--            android:id="@+id/dashboardFragment"-->
+<!--            android:icon="@drawable/mail"-->
+<!--            android:title="Dashboard" />-->
+<!--        <item-->
+<!--            android:id="@+id/inventarisFragment"-->
+<!--            android:icon="@drawable/mail"-->
+<!--            android:title="Inventaris" />-->
         <item
             android:id="@+id/transaksiFragment"
-            android:icon="@drawable/mail"
+            android:icon="@drawable/cart"
             android:title="Transaksi" />
         <item
             android:id="@+id/historyFragment"
-            android:icon="@drawable/mail"
+            android:icon="@drawable/history"
             android:title="History" />
-        <item
-            android:id="@+id/pengaturanFragment"
-            android:icon="@drawable/mail"
-            android:title="Pengaturan" />
-        <item
-            android:id="@+id/analisisFragment"
-            android:icon="@drawable/mail"
-            android:title="Analisis" />
+<!--        <item-->
+<!--            android:id="@+id/pengaturanFragment"-->
+<!--            android:icon="@drawable/mail"-->
+<!--            android:title="Pengaturan" />-->
+<!--        <item-->
+<!--            android:id="@+id/analisisFragment"-->
+<!--            android:icon="@drawable/mail"-->
+<!--            android:title="Analisis" />-->
         <item
             android:id="@+id/profileFragment"
-            android:icon="@drawable/mail"
+            android:icon="@drawable/profile"
             android:title="Profile" />
         <item
             android:id="@+id/action_signout"
-            android:icon="@drawable/mail"
+            android:icon="@drawable/log_out"
             android:title="Sign Out" />
     </group>
 </menu>
