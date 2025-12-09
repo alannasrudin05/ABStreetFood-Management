@@ -2,6 +2,7 @@ package com.praktikum.abstreetfood_management.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,7 +82,7 @@ class ListProductFragment : Fragment(){
 //        dialog.show(parentFragmentManager, ProductVariantDialog.TAG)
 //    }
 
-    private fun loadData() {
+//    private fun loadData() {
         // CONTOH: Mengisi data List Product (menggunakan data dummy sementara)
 //        val dummyData = listOf(
 //            ProductItem("id1", "P001", "Ayam Goreng", 12000.0,  "NASI_BIASA"),
@@ -100,6 +101,25 @@ class ListProductFragment : Fragment(){
         // viewModel.topSellingProducts.observe(viewLifecycleOwner) { products ->
         //     listProductAdapter.submitList(products)
         // }
+//    }
+
+    fun loadData() {
+        Log.d("DATA_PREP", "Memulai pengecekan kesiapan data di ListProductFragment.")
+
+        // 1. Target Data Yang Diinginkan
+        // Tujuan: Menampilkan Top Selling Products.
+        // Model Data: TopSellingProduct (name, totalQuantitySold, totalRevenue)
+        Log.d("DATA_PREP", "Target model data: TopSellingProduct (mengandung Total Penjualan & Revenue).")
+
+        // 2. Status Implementasi ViewModel Observer
+        // Kode untuk observer Top Selling Products saat ini dikomentari (TODO):
+        // // viewModel.topSellingProducts.observe(viewLifecycleOwner) { products -> ... }
+        Log.w("DATA_PREP", "Status ViewModel Observer: Observer untuk 'topSellingProducts' saat ini dinonaktifkan (dikomentari/TODO).")
+
+        // 3. Status Data yang Diamati Saat Ini
+        // Jika observer 'viewModel.allProductItems' (seperti yang dikomentari di loadData) yang digunakan,
+        // data yang diterima adalah ProductItem (data master), BUKAN data Top Sales.
+        Log.d("DATA_PREP", "Catatan: Data yang harusnya diterima dari ViewModel adalah hasil agregasi (TopSellingProduct).")
     }
 
     override fun onDestroyView() {

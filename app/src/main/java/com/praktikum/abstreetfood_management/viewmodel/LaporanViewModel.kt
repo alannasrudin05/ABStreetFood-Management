@@ -201,8 +201,11 @@ class LaporanViewModel @Inject constructor(
             _csvExportStatus.value = ExportStatus.Loading
             try {
                 // 1. Ambil data dari Room (Use Case akan menghitung filter waktu)
-                val dataToExport = reportUseCase.getSalesDataForPeriod(period)
+//                val dataToExport = reportUseCase.getSalesDataForPeriod(period)
 
+                val dataToExport = withContext(Dispatchers.IO) { // <-- Pindahkan ke sini
+                    reportUseCase.getSalesDataForPeriod(period)
+                }
                 if (dataToExport.isEmpty()) {
                     _csvExportStatus.value = ExportStatus.Error("Tidak ada data transaksi di periode ini.")
                     return@launch

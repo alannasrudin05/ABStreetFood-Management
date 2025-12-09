@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -19,18 +20,22 @@ import com.praktikum.abstreetfood_management.R
 import com.praktikum.abstreetfood_management.data.adapter.TabPageAdapter
 //import com.praktikum.abstreetfood_management.data.adapter.TopSellingAdapter
 import com.praktikum.abstreetfood_management.databinding.FragmentHomeBinding
+import com.praktikum.abstreetfood_management.domain.model.DailyMetric
 import com.praktikum.abstreetfood_management.viewmodel.DashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.Locale
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     // [BARU] Inject ViewModel
-//    private val viewModel: DashboardViewModel by viewModels()
+//    @Inject
+    private val viewModel: DashboardViewModel by viewModels()
 
     // [BARU] Dua Adapter yang berbeda
 //    private lateinit var topSellingAdapter: TopSellingAdapter
@@ -154,6 +159,16 @@ class HomeFragment : Fragment() {
 //    }
 
     private fun setupObservers() {
+
+        viewModel.dailyTransactionMetrics.observe(viewLifecycleOwner) { metrics ->
+            updateTransactionCard(metrics)
+        }
+
+        // 2. Amati Metrik Pendapatan
+        viewModel.dailyRevenueMetrics.observe(viewLifecycleOwner) { metrics ->
+            updateRevenueCard(metrics)
+        }
+
         // 1. Amati Total Pendapatan Harian
 //        viewModel.dailyRevenue.observe(viewLifecycleOwner) { revenue ->
 //            val formattedRevenue = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(revenue ?: 0.0)
@@ -177,6 +192,56 @@ class HomeFragment : Fragment() {
 //        }
 
         // TODO: Anda perlu observer untuk Total Transaksi (tvTotalTransaksi)
+    }
+
+    // ✅ FUNGSI BARU: Update Kartu Transaksi
+    private fun updateTransactionCard(metrics: DailyMetric) {
+        val count = metrics.currentTotal.toInt()
+        val percentage = metrics.percentageChange
+        val isPositive = percentage >= 0
+        val percentageText = if (isPositive) "+${"%.1f".format(percentage)}%" else "${"%.1f".format(percentage)}%"
+
+        // Update Total Transaksi
+        binding.tvTotalTransaksi.text = count.toString()
+        binding.tvTransaksiPercentage.text = percentageText
+
+        // Update Warna Persentase dan Lingkaran
+        val color = if (isPositive) R.color.green_positive else R.color.red_negative // Asumsi R.color.red_negative
+        val drawable = if (isPositive) R.drawable.circle_green else R.drawable.circle_red // Asumsi R.drawable.circle_red
+
+        binding.tvTransaksiPercentage.setTextColor(ContextCompat.getColor(requireContext(), color))
+        binding.tvTransaksiPercentage.text = percentageText
+
+        // Update Lingkaran
+        binding.viewCircleTransaksi.setBackgroundResource(drawable)
+//        binding.root.findViewById<View>(R.id.circle_green).setBackgroundResource(drawable)
+    }
+
+    // ✅ FUNGSI BARU: Update Kartu Pendapatan
+    private fun updateRevenueCard(metrics: DailyMetric) {
+        val revenue = metrics.currentTotal
+        val percentage = metrics.percentageChange
+        val isPositive = percentage >= 0
+        val percentageText = if (isPositive) "+${"%.1f".format(percentage)}%" else "${"%.1f".format(percentage)}%"
+        val formattedRevenue = NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(revenue)
+
+        // Update Total Pendapatan
+        binding.tvTotalPendapatan.text = formattedRevenue
+        binding.tvPendapatanPercentage.text = percentageText
+
+        // Update Warna Persentase dan Lingkaran
+        val color = if (isPositive) R.color.green_positive else R.color.red_negative
+        val drawable = if (isPositive) R.drawable.circle_green else R.drawable.circle_red
+
+        binding.tvPendapatanPercentage.setTextColor(ContextCompat.getColor(requireContext(), color))
+        binding.tvPendapatanPercentage.text = percentageText
+
+        // Update Lingkaran (Asumsi ID lingkaran di layout Anda)
+        // Note: Karena Anda tidak memberikan ID spesifik pada View Lingkaran di Card 2,
+        // saya akan menggunakan findViewById pada parent ViewGroup jika diperlukan
+        // Untuk saat ini, asumsikan View pertama di LinearLayout adalah lingkaran.
+        val container = binding.tvPendapatanPercentage.parent as ViewGroup
+        container.getChildAt(0).setBackgroundResource(drawable)
     }
     override fun onDestroyView() {
         super.onDestroyView()

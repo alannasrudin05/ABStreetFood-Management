@@ -67,7 +67,8 @@ class HistoryAdapter(private val onClick: (Transaction) -> Unit) :
             // 💡 Catatan: productItemId diganti dengan ID Transaksi
 
             // 2. Status Sinkronisasi
-            binding.tvVarian.text = "Nasi ${item.id}"
+//            binding.tvVarian.text = "Nasi ${item.id}"
+            binding.tvVarian.text = "Tersinkron"
 //            val isSynced = try { (item as com.praktikum.abstreetfood_management.data.local.entity.TransactionEntity).isSynced } catch (e: Exception) { true }
 //            binding.tvVarian.text = if (isSynced) "Tersinkron" else "Pending Sync"
 

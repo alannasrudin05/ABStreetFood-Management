@@ -22,13 +22,15 @@
             android:layout_height="@dimen/item_image_size"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/accent_pink">
+            app:cardBackgroundColor="@color/accent_pink"
+            >
 
             <ImageView
                 android:id="@+id/ivRiwayatImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ayam_goreng"
                 android:contentDescription="Product Image" />
 
         </androidx.cardview.widget.CardView>

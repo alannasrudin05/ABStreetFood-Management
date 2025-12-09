@@ -1,5 +1,6 @@
 package com.praktikum.abstreetfood_management.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -328,9 +330,47 @@ class LaporanFragment : Fragment() {
         viewModel.csvExportStatus.observe(viewLifecycleOwner) { status ->
             if (status is ExportStatus.Success) {
                 Toast.makeText(context, "Export Sukses: ${status.filePath}", Toast.LENGTH_LONG).show()
+                shareExportedFile(status.filePath)
             } else if (status is ExportStatus.Error) {
                 Toast.makeText(context, "Export Gagal: ${status.message}", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun shareExportedFile(filePath: String) {
+        try {
+            val file = File(filePath)
+
+            if (!file.exists()) {
+                Toast.makeText(requireContext(), "File tidak ditemukan di cache.", Toast.LENGTH_LONG).show()
+                return
+            }
+            val authority = "${requireContext().packageName}.provider"
+
+            // 1. Dapatkan URI yang aman menggunakan FileProvider
+            // FileProvider memungkinkan aplikasi pihak ketiga mengakses file tanpa izin WRITE_EXTERNAL_STORAGE.
+            val fileUri = FileProvider.getUriForFile(
+                requireContext(),
+                authority,
+                // ✅ GANTI DENGAN NAMA PROVIDER ANDA: Contoh: com.praktikum.abstreetfood_management.provider
+//                "${requireContext().packageName}.provider",
+                file
+            )
+
+            // 2. Buat Intent SHARE
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/csv" // MIME type untuk CSV
+                putExtra(Intent.EXTRA_STREAM, fileUri)
+                // Memberikan izin baca sementara kepada aplikasi penerima
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+
+            // 3. Tampilkan Chooser
+            startActivity(Intent.createChooser(shareIntent, "Bagikan Laporan CSV via..."))
+
+        } catch (e: Exception) {
+            Log.e("EXPORT_SHARE", "Gagal memicu Intent share: ${e.message}", e)
+            Toast.makeText(requireContext(), "Gagal menyiapkan sharing file. Cek FileProvider.", Toast.LENGTH_LONG).show()
         }
     }
 

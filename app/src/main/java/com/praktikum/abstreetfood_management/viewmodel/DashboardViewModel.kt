@@ -1,16 +1,18 @@
 package com.praktikum.abstreetfood_management.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.switchMap // <-- Import Kritis
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap // Import Kritis
 import androidx.lifecycle.viewModelScope
 import com.praktikum.abstreetfood_management.data.repository.DashboardRepository
+import com.praktikum.abstreetfood_management.domain.model.DailyMetric // Asumsi model ini sudah ada
 import com.praktikum.abstreetfood_management.domain.model.TopSellingProduct
 import com.praktikum.abstreetfood_management.domain.usecase.SessionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -19,17 +21,16 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val repository: DashboardRepository,
     private val sessionUseCase: SessionUseCase,
-    // private val authPrefs: AuthPreferenceManager
 ) : ViewModel() {
 
-    // LiveData yang memegang ID pengguna, akan di-update oleh init
+    // --- State Sesi User ---
     private val _currentUserId = MutableLiveData<String?>()
     val currentUserId: LiveData<String?> = _currentUserId
 
     private val _currentUserRole = MutableLiveData<String?>()
     val currentUserRole: LiveData<String?> = _currentUserRole
 
-    // Property untuk mendapatkan timestamp awal hari (00:00:00)
+    // --- Properti Waktu ---
     private val startOfDay: Long
         get() {
             val calendar = Calendar.getInstance()
@@ -37,87 +38,80 @@ class DashboardViewModel @Inject constructor(
             calendar.set(Calendar.MINUTE, 0)
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
+
+            // Log ini akan dieksekusi setiap kali properti diakses
+            Log.d("VIEWMODEL_TIME", "Today Start: ${calendar.timeInMillis}")
             return calendar.timeInMillis
         }
 
-    init {
-        viewModelScope.launch {
-            sessionUseCase.getCurrentUserId().collect { id -> _currentUserId.value = id }
-            sessionUseCase.getCurrentUserRole().collect { role -> _currentUserRole.value = role }
+    private val startOfYesterday: Long
+        get() {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, -1)
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+            Log.d("VIEWMODEL_TIME", "Yesterday Start: ${calendar.timeInMillis}")
+            return calendar.timeInMillis
+        }
+
+    // --- LiveData Metrik Perbandingan (Hari Ini vs. Kemarin) ---
+
+    val dailyRevenueMetrics: LiveData<DailyMetric> = _currentUserId.switchMap { userId ->
+        if (userId.isNullOrEmpty()) {
+            MutableLiveData(DailyMetric(0.0, 0.0, 0.0))
+        } else {
+            // Ambil data dari Repository dan tambahkan log di ViewModel
+            repository.getRevenueMetrics(userId, startOfDay, startOfYesterday).asLiveData().map { metrics ->
+                Log.d("VIEWMODEL_METRIC", "Revenue Received: ${"%.2f".format(metrics.currentTotal)} (${"%.2f".format(metrics.percentageChange)}%)")
+                metrics
+            }
         }
     }
 
-//    // 1. Total Pendapatan Harian (Menggunakan switchMap)
-//    val dailyRevenue: LiveData<Double?> = _currentUserId.switchMap { userId ->
-//        if (userId.isNullOrEmpty()) {
-//            MutableLiveData(0.0) // Nilai default 0.0 jika ID belum tersedia/null
-//        } else {
-//            // Panggil Repository hanya jika userId tersedia
-//            repository.getDailyRevenue(userId, startOfDay).asLiveData()
-//        }
-//    }
-//
-//    // 2. Total Transaksi Harian
-//    val dailyTransactionCount: LiveData<Int?> = _currentUserId.switchMap { userId ->
-//        if (userId.isNullOrEmpty()) {
-//            MutableLiveData(0) // Nilai default 0 jika ID belum tersedia/null
-//        } else {
-//            // Panggil Repository (Asumsi fungsi sudah ada di Repository)
-//            repository.getDailyTransactionCount(userId, startOfDay).asLiveData()
-//        }
-//    }
-//
-//    // 3. Produk Terlaris (Top Selling) - Umumnya tidak bergantung pada userId tertentu
-//    val topSellingProducts: LiveData<List<TopSellingProduct>> = repository.getTopSellingProducts().asLiveData()
+    val dailyTransactionMetrics: LiveData<DailyMetric> = _currentUserId.switchMap { userId ->
+        if (userId.isNullOrEmpty()) {
+            MutableLiveData(DailyMetric(0.0, 0.0, 0.0))
+        } else {
+            // Ambil data dari Repository dan tambahkan log di ViewModel
+            repository.getTransactionMetrics(userId, startOfDay, startOfYesterday).asLiveData().map { metrics ->
+                Log.d("VIEWMODEL_METRIC", "Transaction Count Received: ${metrics.currentTotal.toInt()} (${"%.2f".format(metrics.percentageChange)}%)")
+                metrics
+            }
+        }
+    }
 
-    // 4. Total Stok (Asumsi ini adalah total stok bahan baku/produk jadi)
-    // val totalStock = repository.getTotalStock().asLiveData()
+    // --- Data Live Lainnya ---
 
-    // --- 1. Metrik Dasar (Revenue & Transaksi) ---
+    // Total Pendapatan Harian Hari Ini (Versi Lama, dapat dipertahankan untuk tampilan spesifik)
     val dailyRevenue: LiveData<Double?> = _currentUserId.switchMap { userId ->
         if (userId.isNullOrEmpty()) MutableLiveData(0.0)
         else repository.getDailyRevenue(userId, startOfDay).asLiveData()
     }
 
+    // Total Transaksi Harian Hari Ini (Versi Lama)
     val dailyTransactionCount: LiveData<Int?> = _currentUserId.switchMap { userId ->
         if (userId.isNullOrEmpty()) MutableLiveData(0)
         else repository.getDailyTransactionCount(userId, startOfDay).asLiveData()
     }
 
-    // --- 2. Data Produk & Stok (Untuk Tampilan Dinamis) ---
-
-    // Produk Terlaris (Tab Penjualan Teratas / Default)
+    // Produk Terlaris
     val topSellingProducts: LiveData<List<TopSellingProduct>> = repository.getTopSellingProducts().asLiveData()
 
-    // Semua Produk (Untuk Tampilan "All Products" di Tab Penjualan)
+    // Semua Produk
     val allProducts = repository.getAllProducts().asLiveData()
 
-//    // Semua Stok Bahan (Data sumber yang akan difilter)
-//    private val allStockItemsFlow = repository.getAllStockItems()
-//
-//    // Stok Kritis (Difilter dari semua stok, isCritical = true jika currentStock < minThreshold)
-//    val warningStockItems: LiveData<List<StockItemEntity>> = allStockItemsFlow.map { items ->
-//        items.filter { it.currentStock < it.minStockThreshold } // Asumsi StockItemEntity memiliki kolom minStockThreshold
-//    }.asLiveData()
-//
-//    // --- 3. Logika Tampilan Stok (StockDisplayMode) ---
-//
-//    // LiveData untuk mengontrol Tampilan Stok (Warning vs All)
-//    private val _stockDisplayMode = MutableLiveData(StockDisplayMode.WARNING)
-//    val stockDisplayMode: LiveData<StockDisplayMode> = _stockDisplayMode
-//
-//    /**
-//     * Data yang diobservasi oleh RecyclerView saat Tab 'Stok' aktif.
-//     * Menggunakan switchMap untuk berpindah sumber data berdasarkan mode.
-//     */
-//    val currentStockList: LiveData<List<StockItemEntity>> = _stockDisplayMode.switchMap { mode ->
-//        when (mode) {
-//            StockDisplayMode.WARNING -> warningStockItems // Filtered List (Warning)
-//            StockDisplayMode.ALL -> allStockItemsFlow.asLiveData() // Full List (All)
-//        }
-//    }
-//
-//    fun setStockDisplayMode(mode: StockDisplayMode) {
-//        _stockDisplayMode.value = mode
-//    }
+
+    // --- Inisialisasi ---
+    init {
+        viewModelScope.launch {
+            sessionUseCase.getCurrentUserId().collect { id ->
+                _currentUserId.value = id
+                Log.d("VIEWMODEL_USER", "User ID Set: $id")
+            }
+            sessionUseCase.getCurrentUserRole().collect { role -> _currentUserRole.value = role }
+        }
+        // loadDailyMetrics() // Dihapus karena switchMap menangani pemuatan otomatis saat _currentUserId berubah.
+    }
 }

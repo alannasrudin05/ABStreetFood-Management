@@ -121,6 +121,10 @@ class MainActivity : AppCompatActivity() {
             if (destination.id == R.id.transaksiFragment) {
                 binding.bottomNavigation.visibility = View.GONE
             }
+
+            if (destination.id == R.id.notaFragment) {
+                binding.bottomNavigation.visibility = View.GONE
+            }
         }
     }
 

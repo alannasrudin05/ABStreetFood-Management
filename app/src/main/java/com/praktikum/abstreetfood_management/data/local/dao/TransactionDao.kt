@@ -27,6 +27,12 @@ interface TransactionDao {
     @Query("SELECT COUNT(id) FROM transactions WHERE userId = :userId AND transactionTime >= :startOfDay")
     fun getDailyTransactionCount(userId: String, startOfDay: Long): Flow<Int?>
 
+    @Query("SELECT SUM(grandTotal) FROM transactions WHERE userId = :userId AND transactionTime BETWEEN :startOfYesterday AND :startOfDay")
+    fun getPreviousDailyRevenue(userId: String, startOfYesterday: Long, startOfDay: Long): Flow<Double?>
+
+    @Query("SELECT COUNT(id) FROM transactions WHERE userId = :userId AND transactionTime BETWEEN :startOfYesterday AND :startOfDay")
+    fun getPreviousDailyTransactionCount(userId: String, startOfYesterday: Long, startOfDay: Long): Flow<Int?>
+
     /** Mendapatkan semua transaksi untuk History/Laporan (Contoh: 100 transaksi terakhir) */
     @Query("SELECT * FROM transactions ORDER BY transactionTime DESC LIMIT 100")
     fun getAllTransactions(): Flow<List<TransactionEntity>>

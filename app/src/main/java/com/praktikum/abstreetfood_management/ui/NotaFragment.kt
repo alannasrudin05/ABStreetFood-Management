@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.praktikum.abstreetfood_management.R
@@ -121,8 +122,12 @@ class NotaFragment : Fragment() {
         // Listener Aksi (Tombol dari layout fragment_nota.xml)
         binding.btnShareReceipt.setOnClickListener {
             // Kita kirimkan root layout scrollview-nya untuk di-capture
-            shareReceipt(binding.root.getChildAt(0))
+//            shareReceipt(binding.root.getChildAt(0))
+//            shareReceipt(binding.notaScrollView)
+            val contentToCapture = binding.notaScrollView.getChildAt(0)
+            shareReceipt(contentToCapture)
         }
+
 
         binding.btnPrintReceipt.setOnClickListener {
             // Mulai cek izin & alur Bluetooth
@@ -133,8 +138,16 @@ class NotaFragment : Fragment() {
 
         // Tombol kembali (navigasi ke Home/Dashboard)
         binding.ivBack.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+//            requireActivity().onBackPressedDispatcher.onBackPressed()
+            navigateToHome()
+
         }
+    }
+
+    private fun navigateToHome() {
+        // Fungsi ini hanya bertanggung jawab untuk navigasi ke Home
+        val action = R.id.action_notaFragment_to_homeFragment
+        findNavController().navigate(action)
     }
 
     // =====================================================================================
@@ -325,8 +338,20 @@ class NotaFragment : Fragment() {
         )
         view.layout(0, 0, view.measuredWidth, view.measuredHeight)
 
-        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+//        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+//        val canvas = Canvas(bitmap)
+//        view.draw(canvas)
+//        return bitmap
+
+        // Cek tinggi yang didapat. Jika 0, gunakan tinggi manual (safety check)
+        val bitmapHeight = if (view.measuredHeight > 0) view.measuredHeight else view.height
+
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
+
+        // Pastikan background putih jika view tidak memiliki background (untuk menghindari transparan)
+        canvas.drawColor(ContextCompat.getColor(view.context, R.color.white)) // <-- Tambahkan ini
+
         view.draw(canvas)
         return bitmap
     }
